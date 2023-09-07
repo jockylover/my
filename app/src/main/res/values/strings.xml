@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">第一个app</string>
+    <string name="hello_world">你好,世界</string>
+    <string name="click_me">点击我</string>
+</resources>
