@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">我的第一个应用</string>
+    <string name="app_name">MyFirstApplication</string>
     <string name="hello_android">你好,Android</string>
     <string name="click_me">点击我</string>
     <string name="Hello">Hello</string>
