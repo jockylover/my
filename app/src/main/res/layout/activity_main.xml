@@ -10,7 +10,7 @@
         android:id="@+id/text_view_hello_world"
         android:layout_width="111dp"
         android:layout_height="39dp"
-        android:text="@string/Hello"
+        android:text="@string/hello_android"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

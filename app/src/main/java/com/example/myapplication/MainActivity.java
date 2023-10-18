@@ -25,12 +25,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
+        TextView textView = findViewById(R.id.text_view_hello_world);
+        String helloText = getString(R.string.hello_android);
+        textView.setText(helloText);
+
         // 交换文本
-
-
-//        TextView textView = findViewById(R.id.text_view_hello_world);
-//        String helloText = getString(R.string.hello_android);
-//        textView.setText(helloText);
 //
 //        // 初始化视图对象
 //        TextView textViewHello = findViewById(R.id.textViewHello);
