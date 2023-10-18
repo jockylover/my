@@ -1,98 +1,115 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.view.View;
-import android.view.View;
 
-public class MainActivity extends Activity {
+import java.util.ArrayList;
+import java.util.List;
 
-    Button buttonChangeText;
-
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RecyclerView recyclerView = findViewById(R.id.recycle_view_books);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        // 获取图书列表
+        List<Book> bookList = getListBooks();
+        BookAdapter adapter = new BookAdapter(bookList); // 传入数据集合
+        recyclerView.setAdapter(adapter);
 
-//        TextView textView = findViewById(R.id.text_view_hello_world);
-//        String helloText = getString(R.string.hello_android);
-//        textView.setText(helloText);
+    }
 
-        // 交换文本
+    public class Book {
+        private int coverResourceId;
+        private String title;
 
-        // 初始化视图对象
-        TextView textViewHello = findViewById(R.id.textViewHello);
-        TextView textViewJNU = findViewById(R.id.textViewJNU);
-        Button buttonChangeText = findViewById(R.id.buttonChangeText);
-        buttonChangeText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                swapText();
+        public Book(int coverResourceId, String title) {
+            this.coverResourceId = coverResourceId;
+            this.title = title;
+        }
+
+        public int getCoverResourceId() {
+            return coverResourceId;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+    }
+
+    public List<Book> getListBooks() {
+        List<Book> bookList = new ArrayList<>();
+
+        // 添加图书对象到列表
+        bookList.add(new Book(R.drawable.book_1, "软件项目管理案例教程（第4版）"));
+        bookList.add(new Book(R.drawable.book_2, "创新工程实践"));
+        bookList.add(new Book(R.drawable.book_no_name, "信息安全数学基础（第2版）"));
+
+        return bookList;
+    }
+
+    public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
+        // 在这里定义数据集合和ViewHolder
+
+        private List<Book> bookList;
+
+        public BookAdapter(List<Book> bookList) {
+            this.bookList = bookList;
+        }
+        @Override
+        public BookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            // 创建并返回ViewHolder
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_item_list, parent, false);
+            return new BookAdapter.BookViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull BookAdapter.BookViewHolder holder, int position) {
+            Book book = bookList.get(position);
+            holder.bind(book);
+        }
+
+        @Override
+        public int getItemCount() {
+            // 返回数据集合的大小
+            return bookList.size();
+        }
+        public class BookViewHolder extends RecyclerView.ViewHolder {
+
+            // 在ViewHolder中定义视图元素
+
+            private ImageView coverImageView;
+            private TextView titleTextView;
+
+            public BookViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                // 在构造函数中找到布局中的视图元素
+                coverImageView = itemView.findViewById(R.id.image_view_book_cover);
+                titleTextView = itemView.findViewById(R.id.text_view_book_title);
             }
-        });
+
+            // 提供一个方法来绑定数据到ViewHolder中的视图元素
+            public void bind(Book book) {
+                coverImageView.setImageResource(book.getCoverResourceId());
+                titleTextView.setText(book.getTitle());
+            }
+
+        }
+
     }
 
-    // 处理按钮点击事件的方法
-    public void swapText() {
-        TextView textViewHello = findViewById(R.id.textViewHello);
-        TextView textViewJNU = findViewById(R.id.textViewJNU);
-        Button buttonChangeText = findViewById(R.id.buttonChangeText);
-        // 交换两个TextView的文本
-        String tempText = textViewHello.getText().toString();
-        textViewHello.setText(textViewJNU.getText());
-        textViewJNU.setText(tempText);
-
-        // 显示Toast
-        Toast.makeText(this, "交换成功", Toast.LENGTH_SHORT).show();
-
-        // 显示AlertDialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("交换成功")
-                .setMessage("文本已交换")
-                .setPositiveButton("确定", null)
-                .show();
-    }
-
-
-    // 设置按钮点击事件监听器
-
-//        public void swapText (View view){
-//            // 交换两个TextView的文本
-//            String tempText = textViewHello.getText().toString();
-//            textViewHello.setText(textViewJNU.getText());
-//            textViewJNU.setText(tempText);
-//
-//            // 显示Toast
-//            Toast.makeText(this, "交换成功", Toast.LENGTH_SHORT).show();
-//
-//            // 显示AlertDialog
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setTitle("交换成功")
-//                    .setMessage("文本已交换")
-//                    .setPositiveButton("确定", null)
-//                    .show();
-//        }
-//        RelativeLayout relativeLayout = new RelativeLayout(this);
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-//                RelativeLayout.LayoutParams.WRAP_CONTENT,
-//                RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        params.addRule(RelativeLayout.CENTER_IN_PARENT);  //设置布局中的控件居中显示
-//        TextView textView = new TextView(this);                       //创建TextView控件
-//        textView.setText("Java 代码实现界面布局");                     //设置TextView的文字内容
-//        textView.setTextColor(Color.RED);                                  //设置TextView的文字颜色
-//        textView.setTextSize(18);                                                //设置TextView的文字大小
-//        relativeLayout.addView(textView, params);                  //添加TextView对象和TextView的布局属性
-//        setContentView(relativeLayout);                                  //设置在Activity中显示RelativeLayout
-    }
+}
