@@ -26,67 +26,49 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 
-
-
-        TextView textView = findViewById(R.id.text_view_hello_world);
-        String helloText = getString(R.string.hello_android);
-        textView.setText(helloText);
+//        TextView textView = findViewById(R.id.text_view_hello_world);
+//        String helloText = getString(R.string.hello_android);
+//        textView.setText(helloText);
 
         // 交换文本
-//
-//        // 初始化视图对象
-//        TextView textViewHello = findViewById(R.id.textViewHello);
-//        TextView textViewJNU = findViewById(R.id.textViewJNU);
-//        Button buttonChangeText = findViewById(R.id.buttonChangeText);
-//        buttonChangeText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                swapText();
-//            }
-//        });
-//    }
-//    // 处理按钮点击事件的方法
-//    public void swapText() {
-//        // 交换两个TextView的文本
-//        TextView textViewHello = findViewById(R.id.textViewHello);
-//        TextView textViewJNU = findViewById(R.id.textViewJNU);
-//        String tempText = textViewHello.getText().toString();
-//        textViewHello.setText(textViewJNU.getText());
-//        textViewJNU.setText(tempText);
-//
-//        // 显示Toast
-//        Toast.makeText(this, "交换成功", Toast.LENGTH_SHORT).show();
-//
-//        // 显示AlertDialog
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("交换成功")
-//                .setMessage("文本已交换")
-//                .setPositiveButton("确定", null)
-//                .show();
-//    }
 
-        //
-//        // 设置按钮点击事件监听器
-//        buttonChangeText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // 交换两个TextView的文本
-//                String tempText = textViewHello.getText().toString();
-//                textViewHello.setText(textViewJNU.getText());
-//                textViewJNU.setText(tempText);
-//
-//                // 显示Toast
-//                Toast.makeText(MainActivity.this, "交换成功", Toast.LENGTH_SHORT).show();
-//
-//                // 显示AlertDialog
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                builder.setTitle("交换成功")
-//                        .setMessage("文本已交换")
-//                        .setPositiveButton("确定", null)
-//                        .show();
-//            }
-//        });
-//        public void swapText(View view){
+        // 初始化视图对象
+        TextView textViewHello = findViewById(R.id.textViewHello);
+        TextView textViewJNU = findViewById(R.id.textViewJNU);
+        Button buttonChangeText = findViewById(R.id.buttonChangeText);
+        buttonChangeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swapText();
+            }
+        });
+    }
+
+    // 处理按钮点击事件的方法
+    public void swapText() {
+        TextView textViewHello = findViewById(R.id.textViewHello);
+        TextView textViewJNU = findViewById(R.id.textViewJNU);
+        Button buttonChangeText = findViewById(R.id.buttonChangeText);
+        // 交换两个TextView的文本
+        String tempText = textViewHello.getText().toString();
+        textViewHello.setText(textViewJNU.getText());
+        textViewJNU.setText(tempText);
+
+        // 显示Toast
+        Toast.makeText(this, "交换成功", Toast.LENGTH_SHORT).show();
+
+        // 显示AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("交换成功")
+                .setMessage("文本已交换")
+                .setPositiveButton("确定", null)
+                .show();
+    }
+
+
+    // 设置按钮点击事件监听器
+
+//        public void swapText (View view){
 //            // 交换两个TextView的文本
 //            String tempText = textViewHello.getText().toString();
 //            textViewHello.setText(textViewJNU.getText());
@@ -103,7 +85,7 @@ public class MainActivity extends Activity {
 //                    .show();
 //        }
 //        RelativeLayout relativeLayout = new RelativeLayout(this);
-//        RelativeLayout.LayoutParams params =  new RelativeLayout.LayoutParams(
+//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 //                RelativeLayout.LayoutParams.WRAP_CONTENT,
 //                RelativeLayout.LayoutParams.WRAP_CONTENT);
 //        params.addRule(RelativeLayout.CENTER_IN_PARENT);  //设置布局中的控件居中显示
@@ -114,4 +96,3 @@ public class MainActivity extends Activity {
 //        relativeLayout.addView(textView, params);                  //添加TextView对象和TextView的布局属性
 //        setContentView(relativeLayout);                                  //设置在Activity中显示RelativeLayout
     }
-}

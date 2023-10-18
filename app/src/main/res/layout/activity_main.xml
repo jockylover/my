@@ -26,41 +26,41 @@
         app:layout_constraintTop_toBottomOf="@+id/text_view_hello_world"
         tools:ignore="UnknownId" />
 
-    <!--    <TextView-->
-<!--        android:id="@+id/textViewHello"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="28dp"-->
-<!--        android:text="@string/Hello"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/buttonChangeText"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.498"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        tools:ignore="MissingConstraints" />-->
+        <TextView
+        android:id="@+id/textViewHello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:text="@string/Hello"
+        app:layout_constraintBottom_toTopOf="@+id/buttonChangeText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/textViewJNU"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/JNU"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/textViewHello"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:ignore="MissingConstraints,UnknownId" />-->
+    <TextView
+        android:id="@+id/textViewJNU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/JNU"
+        app:layout_constraintBottom_toTopOf="@+id/textViewHello"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,UnknownId" />
 
-<!--    <Button-->
-<!--        android:id="@+id/buttonChangeText"-->
-<!--        android:layout_width="124dp"-->
-<!--        android:layout_height="54dp"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        android:layout_marginBottom="128dp"-->
-<!--        android:text="@string/button2"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/text_view_hello_world"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.498"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView2"-->
-<!--        tools:ignore="MissingConstraints,UnknownId" />-->
+    <Button
+        android:id="@+id/buttonChangeText"
+        android:layout_width="124dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="128dp"
+        android:text="@string/button2"
+        app:layout_constraintBottom_toTopOf="@+id/text_view_hello_world"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:ignore="MissingConstraints,UnknownId" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
