@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">MyFirstApplication</string>
+    <string name="app_name">MyApplication</string>
     <string name="hello_android">你好,Android</string>
     <string name="click_me">点击我</string>
     <string name="Hello">Hello</string>
     <string name="JNU">JNU</string>
     <string name="button2">change text</string>
+    <string name="string_ok">ok</string>
 </resources>
