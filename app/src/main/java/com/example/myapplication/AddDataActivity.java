@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class AddDataActivity extends AppCompatActivity {
-
     private int position = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,6 @@ public class AddDataActivity extends AppCompatActivity {
                 editText.setText(key);
             }
         }
-
         Button button_ok = findViewById(R.id.button_ok);
         button_ok.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,9 +4,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.ShoppingListFragment;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,13 +16,13 @@ import java.util.List;
 
 public class DataBank {
     final String DATA_FILENAME = "bookitems.data";
-    ArrayList<MainActivity.Book> data = new ArrayList<>();
-    public List<MainActivity.Book> LoadBookList(Context context) {
-        ArrayList<MainActivity.Book> data = new ArrayList<>();
+    ArrayList<Book> data = new ArrayList<>();
+    public ArrayList<Book> LoadBookList(Context context) {
+        ArrayList<Book> data = new ArrayList<>();
         try{
             FileInputStream fileIn = context.openFileInput(DATA_FILENAME);
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-            data = (ArrayList<MainActivity.Book>) objectIn.readObject();
+            data = (ArrayList<Book>) objectIn.readObject();
             objectIn.close();
             fileIn.close();
             Log.d("Serialization","Dataloaded successfully"+ data.size());
@@ -32,7 +32,7 @@ public class DataBank {
         return data;
     }
 
-    public List<MainActivity.Book> saveBookItems(Context context, ArrayList<MainActivity.Book> bookitem) {
+    public List<Book> saveBookItems(Context context, ArrayList<Book> bookitem) {
         try{
             FileOutputStream fileOut = context.openFileOutput(DATA_FILENAME, context.MODE_PRIVATE);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);

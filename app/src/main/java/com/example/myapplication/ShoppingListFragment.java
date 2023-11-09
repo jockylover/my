@@ -1,79 +1,80 @@
 package com.example.myapplication;
 
-import static com.example.myapplication.R.*;
-
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Lifecycle;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
+import android.view.ContextMenu;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-    private String[] tabHeaderStrings = {"Shopping items", "tencent maps", "news"};
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ViewPager2 viewPager = findViewById(R.id.view_pager);
-        TabLayout tabLayout = findViewById(id.tab_layout);
-        FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), getLifecycle());
-        viewPager.setAdapter(fragmentAdapter);
-        new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position)->tab.setText(tabHeaderStrings[position])
-        ).attach();
-    }
-    private class FragmentAdapter extends FragmentStateAdapter {
-        private static final int NUM_TABS = 3;
+import com.example.myapplication.data.DataBank;
+import com.example.myapplication.data.Book;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-        public FragmentAdapter(FragmentManager fragmentManager, Lifecycle lifecycle) {
-            super(fragmentManager,lifecycle);
-        }
-        public Fragment createFragment(int position){
-            switch(position){
-                case 0:
-                    return new ShoppingListFragment();
-                case 2:
-                    return new WebViewFragment();
-                case 1:
-                    return new MapFragment();
-                default:
-                    return null;
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link ShoppingListFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class ShoppingListFragment extends Fragment {
 
-            }
-        }
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-        @Override
-        public int getItemCount() {
-            return NUM_TABS;
-        }
+    public ShoppingListFragment() {
+        // Required empty public constructor
     }
 
-}
-    /*
-    public ArrayList<Book> books = new ArrayList<>();
-    public MainActivity.BookAdapter bookAdapter;
-    ActivityResultLauncher<Intent> launcher;
-    ActivityResultLauncher<Intent> updateItemLauncher;
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     */
+    // TODO: Rename and change types and number of parameters
+    public static ShoppingListFragment newInstance() {
+        ShoppingListFragment fragment = new ShoppingListFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_main);
+        if (getArguments() != null) {
+        }
+    }
+    public ArrayList<Book> books = new ArrayList<>();
+    public BookAdapter bookAdapter;
+    ActivityResultLauncher<Intent> launcher;
+    ActivityResultLauncher<Intent> updateItemLauncher;
+    public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_shopping_list,container);
 
-        RecyclerView recyclerView = findViewById(id.recycle_view_books);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recycle_view_books);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireActivity());
         recyclerView.setLayoutManager(layoutManager);
-        books = (ArrayList<Book>) new DataBank().LoadBookList(MainActivity.this);
-//        if(0 == books.size()){
-//            books.add(new Book(drawable.book_1, "第一本书"));
-//        }
-        books.add(new Book(drawable.book_1, "软件项目管理案例教程（第4版）"));
-        books.add(new Book(drawable.book_2, "创新工程实践"));
-        books.add(new Book(drawable.book_no_name, "信息安全数学基础（第2版）"));
+        books = new DataBank().LoadBookList(requireActivity());
+        if(0 == books.size()){
+            books.add(new Book(R.drawable.book_1, "第一本书"));
+        }
         bookAdapter = new BookAdapter(books);
         // 获取图书列表
         recyclerView.setAdapter(bookAdapter);
@@ -84,10 +85,9 @@ public class MainActivity extends AppCompatActivity {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
                         String key = data.getStringExtra( "key"); // 获款返回的数据
-                        books.add(new Book(drawable.book_no_name, key));
-                        Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+                        books.add(new Book(R.drawable.book_no_name, key));
                         DataBank dataBank = new DataBank();
-                        dataBank.saveBookItems(MainActivity.this,books);
+                        dataBank.saveBookItems(requireActivity(),books);
                         bookAdapter.notifyItemRemoved(books.size());
                     }
                     else if (result.getResultCode() == Activity.RESULT_CANCELED) {// 处理取消操作
@@ -104,24 +104,25 @@ public class MainActivity extends AppCompatActivity {
                         Book book = books.get(position);
                         book.setKey(key);
                         DataBank dataBank = new DataBank();
-                        dataBank.saveBookItems(MainActivity.this, books);
+                        dataBank.saveBookItems(requireActivity(), books);
                         bookAdapter.notifyItemChanged(position);
                     }
                     else if (result.getResultCode() == Activity.RESULT_CANCELED) {// 处理取消操作
                     }
                 }
         );
+        return rootView;
     }
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case 0:
                 // 启动另一个 Activity 来添加新数据
-                Intent addIntent = new Intent(MainActivity.this, AddDataActivity.class);
+                Intent addIntent = new Intent(requireActivity(), AddDataActivity.class);
                 launcher.launch(addIntent);
                 break;
             case 1:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
                 builder.setTitle("Delete data");
                 builder.setMessage("Are you sure you want to delete this data?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -129,13 +130,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         books.remove(item.getOrder());
                         bookAdapter.notifyItemRemoved(item.getOrder());
-                        new DataBank().saveBookItems( MainActivity.this, books);
+                        new DataBank().saveBookItems(requireActivity(), books);
                     }
                 });
                 builder.create().show();
                 break;
             case 2:
-                Intent intentUpdate = new Intent(MainActivity.this, AddDataActivity.class);
+                Intent intentUpdate = new Intent(requireActivity(), AddDataActivity.class);
                 Book book = books.get(item.getOrder());
                 intentUpdate.putExtra("key",books.get(item.getOrder()).getTitle());
                 intentUpdate.putExtra("position", item.getOrder());
@@ -147,37 +148,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public class Book implements Serializable {
-        private int coverResourceId;
-        private String title;
-
-        public Book(int coverResourceId, String title) {
-            this.coverResourceId = coverResourceId;
-            this.title = title;
-        }
-
-        public int getCoverResourceId() {
-            return coverResourceId;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setKey(String key) {
-            this.title = key;
-        }
-    }
-
     public ArrayList<Book> getListBooks() {
         ArrayList<Book> bookList = new ArrayList<>();
 
         // 添加图书对象到列表
         DataBank dataBank = new DataBank();
-        bookList = (ArrayList<Book>) dataBank.LoadBookList(this.getApplicationContext());
-        bookList.add(new Book(drawable.book_1, "软件项目管理案例教程（第4版）"));
-        bookList.add(new Book(drawable.book_2, "创新工程实践"));
-        bookList.add(new Book(drawable.book_no_name, "信息安全数学基础（第2版）"));
+        bookList = (ArrayList<Book>) dataBank.LoadBookList(this.requireActivity());
+        bookList.add(new Book(R.drawable.book_1, "软件项目管理案例教程（第4版）"));
+        bookList.add(new Book(R.drawable.book_2, "创新工程实践"));
+        bookList.add(new Book(R.drawable.book_no_name, "信息安全数学基础（第2版）"));
 
         return bookList;
     }
@@ -192,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public BookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             // 创建并返回ViewHolder
-            View view = LayoutInflater.from(parent.getContext()).inflate(layout.book_item_list, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_item_list, parent, false);
             return new BookAdapter.BookViewHolder(view);
         }
 
@@ -209,17 +188,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public class BookViewHolder extends RecyclerView.ViewHolder  implements View.OnCreateContextMenuListener {
-
             // 在ViewHolder中定义视图元素
-
             private ImageView coverImageView;
             private TextView titleTextView;
 
             public BookViewHolder(@NonNull View itemView) {
                 super(itemView);
                 // 在构造函数中找到布局中的视图元素
-                coverImageView = itemView.findViewById(id.image_view_book_cover);
-                titleTextView = itemView.findViewById(id.text_view_book_title);
+                coverImageView = itemView.findViewById(R.id.image_view_book_cover);
+                titleTextView = itemView.findViewById(R.id.text_view_book_title);
                 itemView.setOnCreateContextMenuListener(this);
             }
 
@@ -248,5 +225,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
-     */
