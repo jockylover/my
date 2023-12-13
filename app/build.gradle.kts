@@ -38,6 +38,7 @@ dependencies {
     implementation("com.android.support:support-annotations:28.0.0")
     implementation("com.baidu.lbsyun:BaiduMapSDK_Map:7.5.9.2")
     implementation ("com.tencent.map:tencent-map-vector-sdk:4.3.4")
+    implementation("com.google.code.gson:gson:2.8.8")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
