@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class DataDownload {
+
     protected String doInBackground(String... urls) {
 
         try {
@@ -47,6 +48,10 @@ public class DataDownload {
         }
         return null;
     }
+
+    public DataDownload() {
+    }
+
     public String download(String url_) {
         return this.doInBackground(url_);
 

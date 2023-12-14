@@ -39,8 +39,11 @@ dependencies {
     implementation("com.baidu.lbsyun:BaiduMapSDK_Map:7.5.9.2")
     implementation ("com.tencent.map:tencent-map-vector-sdk:4.3.4")
     implementation("com.google.code.gson:gson:2.8.8")
+    implementation("androidx.tracing:tracing:1.3.0-alpha02")
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation("org.json:json:20231013")
+    androidTestImplementation("androidx.test.ext:junit:1.2.0-alpha02")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.0-alpha02")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.6.0-alpha02")
 
 }
